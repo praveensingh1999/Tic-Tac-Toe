@@ -27,6 +27,7 @@ function handleCellClick(index){
     board[index] = currentPlayer === 0 ? 'X' : 'O';
     document.getElementById(index).textContent = board[index];
 if(checkWinner()){
+    
        messageElement.style.color="orange";
         const imgdata = document.createElement("img");
         imgdata.setAttribute("src", "./win_9949456.png");
@@ -34,8 +35,16 @@ if(checkWinner()){
         imgdata.setAttribute("height","70px");
         document.querySelector(".contain").insertBefore(imgdata, document.querySelector(".contain").children[0]);
         messageElement.textContent = `${players[currentPlayer].toUpperCase()} wins!`;
+
     }else if(board.every(cell => cell)){
-        messageElement.textContent = "it's a draw";
+        messageElement.style.color="brown";
+        
+        const imgdata = document.createElement("img");
+        imgdata.setAttribute("src", "./handshake.png");
+        imgdata.setAttribute("width" ,"70px");
+        imgdata.setAttribute("height","70px");
+        document.querySelector(".contain").insertBefore(imgdata, document.querySelector(".contain").children[0]);
+        messageElement.textContent = "it's a Draw";
 
     }else{
         currentPlayer = 1- currentPlayer;
