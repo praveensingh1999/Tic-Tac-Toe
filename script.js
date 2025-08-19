@@ -35,6 +35,11 @@ if(checkWinner()){
         imgdata.setAttribute("height","70px");
         document.querySelector(".contain").insertBefore(imgdata, document.querySelector(".contain").children[0]);
         messageElement.textContent = `${players[currentPlayer].toUpperCase()} wins!`;
+        console.log(winnerdata);
+        for(let i=0;i<winnerdata.length;i++){
+            document.getElementById(`${winnerdata[i]}`).style.backgroundColor = "Magenta";
+
+        }
 
     }else if(board.every(cell => cell)){
         messageElement.style.color="brown";
@@ -53,10 +58,26 @@ if(checkWinner()){
 
 }
 
-function checkWinner(){
-    return winningCombination.some(combination =>
-        combination.every(index => board[index] === (currentPlayer === 0 ? 'X' : 'O'))
-    );
+// let winnerdata;
+// function checkWinner(){
+//     return winningCombination.some(combination =>
+//         combination.every(index => board[index] === (currentPlayer === 0 ? 'X' : 'O'))
+//     );
+//     winnerdata=combination;
+// }
+
+let winnerdata = null;
+
+function checkWinner() {
+    const symbol = (currentPlayer === 0 ? 'X' : 'O');
+
+    return winningCombination.some(combination => {
+        if (combination.every(index => board[index] === symbol)) {
+            winnerdata = combination; // save the winning combo
+            return true; // stop searching
+        }
+        return false;
+    });
 }
 
 document.querySelector(".startagain").addEventListener('click', ()=>{
@@ -64,6 +85,9 @@ document.querySelector(".startagain").addEventListener('click', ()=>{
     gameSection.style.display = "none";
     document.querySelector(".startdiv").style.display="none";
    document.querySelector("img").style.display= "none";
+   document.querySelectorAll(".board > div").forEach(el => {
+  el.style.backgroundColor = "lightpink";
+});
 
 
 })
